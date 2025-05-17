@@ -1,0 +1,44 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:cart-wishlist": "node src/scripts/test-cart-wishlist.js",
+    "migrate:categories": "node src/scripts/migrateCategoryData.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cloudinary": "^1.41.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "express-useragent": "^1.0.15",
+    "geoip-lite": "^1.4.10",
+    "http-status-codes": "^2.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.13.2",
+    "multer": "^1.4.5-lts.2",
+    "multer-storage-cloudinary": "^4.0.0",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.10.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

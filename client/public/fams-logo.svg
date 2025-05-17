@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Pink circle background -->
+  <circle cx="256" cy="256" r="256" fill="#FFD8E1"/>
+  
+  <!-- Stylized 'F' letter in a darker pink shade -->
+  <path d="M180 120 
+           C180 120, 340 120, 340 120
+           C340 120, 340 180, 340 180
+           C340 180, 220 180, 220 180
+           C220 180, 220 220, 220 220
+           C220 220, 300 220, 300 220
+           C300 220, 300 280, 300 280
+           C300 280, 220 280, 220 280
+           C220 280, 220 400, 220 400
+           C220 400, 160 400, 160 400
+           C160 400, 160 120, 180 120Z" 
+        fill="#E75A7C" stroke="#E75A7C" stroke-width="10" stroke-linejoin="round"/>
+  
+  <!-- Small sparkle accent -->
+  <path d="M330 150 L340 130 L350 150 L370 160 L350 170 L340 190 L330 170 L310 160 Z" 
+        fill="#FFFFFF" opacity="0.9"/>
+</svg> 
