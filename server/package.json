@@ -11,7 +11,7 @@
     "migrate:categories": "node src/scripts/migrateCategoryData.js"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": "18.x"
   },
   "keywords": [],
   "author": "",
