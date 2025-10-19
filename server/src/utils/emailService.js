@@ -386,7 +386,7 @@ const getOrderConfirmationTemplate = (order) => {
             </div>
 
             <div style="text-align: center;">
-              <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/account" class="button">View Your Order</a>
+              <a href="${process.env.FRONTEND_URL || process.env.CLIENT_URL || 'http://localhost:5173'}/account" class="button">View Your Order</a>
             </div>
 
             <div class="social-links">

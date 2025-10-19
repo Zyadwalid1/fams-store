@@ -27,7 +27,8 @@ const ProductReviews = ({ productId }) => {
       setIsLoading(true);
       try {
         // Use the full server URL instead of relative path
-        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/products/${productId}/reviews`);
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const response = await fetch(`${apiUrl}/api/products/${productId}/reviews`);
         
         if (!response.ok) {
           // Handle 404 or other error status
@@ -97,7 +98,8 @@ const ProductReviews = ({ productId }) => {
       }
       
       // Use the full server URL instead of relative path
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/products/${productId}/reviews`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/products/${productId}/reviews`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -133,7 +135,7 @@ const ProductReviews = ({ productId }) => {
       console.log('Review submitted:', data);
       
       // After successful API submission, refresh reviews
-      const refreshResponse = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/products/${productId}/reviews`);
+      const refreshResponse = await fetch(`${apiUrl}/api/products/${productId}/reviews`);
       if (refreshResponse.ok) {
         const refreshedData = await refreshResponse.json();
         const formattedReviews = refreshedData.map(review => ({
@@ -191,7 +193,8 @@ const ProductReviews = ({ productId }) => {
         }
         
         // Make DELETE request to API
-        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/products/${productId}/reviews/${reviewId}`, {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const response = await fetch(`${apiUrl}/api/products/${productId}/reviews/${reviewId}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`

@@ -103,7 +103,8 @@ const ProductDetail = () => {
         setIsLoading(true);
         
         // Fetch product details from API
-        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/products/${id}`);
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const response = await fetch(`${apiUrl}/api/products/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch product');
         }
@@ -240,7 +241,7 @@ const ProductDetail = () => {
             categoryName = extractName(data.category);
             
             if (!categoryName || categoryName === data.category) {
-              const categoryResponse = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/product-categories/${data.category}`);
+              const categoryResponse = await fetch(`${apiUrl}/api/product-categories/${data.category}`);
               if (categoryResponse.ok) {
                 const categoryData = await categoryResponse.json();
                 categoryName = categoryData.name;
@@ -262,7 +263,7 @@ const ProductDetail = () => {
           brandName = data.brand.name;
         } else if (isMongoId(data.brand)) {
           try {
-            const brandResponse = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/brands/${data.brand}`);
+            const brandResponse = await fetch(`${apiUrl}/api/brands/${data.brand}`);
             if (brandResponse.ok) {
               const brandData = await brandResponse.json();
               brandName = brandData.name;
@@ -331,7 +332,7 @@ const ProductDetail = () => {
         
         // Fetch related products - handle missing API
         try {
-          const relatedResponse = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/products/${id}/related`);
+          const relatedResponse = await fetch(`${apiUrl}/api/products/${id}/related`);
           if (relatedResponse.ok) {
             const relatedData = await relatedResponse.json();
             

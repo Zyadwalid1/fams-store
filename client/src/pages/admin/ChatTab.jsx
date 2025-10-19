@@ -22,7 +22,8 @@ const ChatTab = () => {
       const token = localStorage.getItem('adminToken');
       
       // Initialize socket
-      socketRef.current = io('http://localhost:5000');
+      const socketUrl = import.meta.env.VITE_SOCKET_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      socketRef.current = io(socketUrl);
       
       // Join admin support room
       socketRef.current.emit('join_admin_support');
@@ -108,7 +109,8 @@ const ChatTab = () => {
     try {
       const token = localStorage.getItem('adminToken');
       
-      const response = await fetch('http://localhost:5000/api/chat/conversations', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/chat/conversations`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -160,7 +162,8 @@ const ChatTab = () => {
       
       console.log('Fetching messages for user ID:', userId);
       
-      const response = await fetch(`http://localhost:5000/api/chat/messages/${userId}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/chat/messages/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -190,7 +193,8 @@ const ChatTab = () => {
     try {
       const token = localStorage.getItem('adminToken');
       
-      await fetch('http://localhost:5000/api/chat/messages/read', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await fetch(`${apiUrl}/api/chat/messages/read`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -226,7 +230,8 @@ const ChatTab = () => {
       console.log('Fetching user details for ID:', userId);
       
       // First try the specific user endpoint
-      let response = await fetch(`http://localhost:5000/api/users/${userId}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      let response = await fetch(`${apiUrl}/api/users/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -235,7 +240,7 @@ const ChatTab = () => {
       // If that fails, try the profile endpoint
       if (!response.ok) {
         console.log('Direct user endpoint failed, trying profile endpoint');
-        response = await fetch(`http://localhost:5000/api/users/profile/${userId}`, {
+        response = await fetch(`${apiUrl}/api/users/profile/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -245,7 +250,7 @@ const ChatTab = () => {
       if (!response.ok) {
         // Try yet another possible endpoint format
         console.log('Profile endpoint failed, trying admin user endpoint');
-        response = await fetch(`http://localhost:5000/api/admin/users/${userId}`, {
+        response = await fetch(`${apiUrl}/api/admin/users/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

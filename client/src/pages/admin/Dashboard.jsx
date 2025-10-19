@@ -225,7 +225,8 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/brands/${selectedBrand._id}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/brands/${selectedBrand._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -264,7 +265,8 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/brands/${brandId}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/brands/${brandId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`
@@ -337,7 +339,8 @@ const Dashboard = () => {
       toast.loading('Deleting product and associated images...');
       
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5000/api/products/${productId}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/products/${productId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -526,7 +529,8 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('http://localhost:5000/api/product-categories', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/product-categories`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -561,7 +565,8 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5000/api/product-categories/${selectedCategory._id}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/product-categories/${selectedCategory._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -597,7 +602,8 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5000/api/product-categories/${categoryId}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/product-categories/${categoryId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`
@@ -658,7 +664,8 @@ const Dashboard = () => {
       console.log('Selected category ID:', selectedCategory._id);
       
       const token = localStorage.getItem('adminToken');
-      const url = `http://localhost:5000/api/product-categories/${selectedCategory._id}/types`;
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const url = `${apiUrl}/api/product-categories/${selectedCategory._id}/types`;
       console.log('Request URL:', url);
       
       const response = await fetch(url, {
@@ -710,7 +717,8 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5000/api/product-categories/${selectedCategory._id}/types/${selectedType._id}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/product-categories/${selectedCategory._id}/types/${selectedType._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -750,7 +758,8 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5000/api/product-categories/${categoryId}/types/${typeId}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/product-categories/${categoryId}/types/${typeId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`
@@ -811,7 +820,8 @@ const Dashboard = () => {
       
       console.log('Using token (first 10 chars):', token.substring(0, 10) + '...');
       
-      const url = `http://localhost:5000/api/product-categories/${selectedCategory._id}/types/${selectedType._id}/subtypes`;
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const url = `${apiUrl}/api/product-categories/${selectedCategory._id}/types/${selectedType._id}/subtypes`;
       console.log('Request URL:', url);
       
       const response = await fetch(url, {
@@ -874,7 +884,8 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5000/api/product-categories/${selectedCategory._id}/types/${selectedType._id}/subtypes/${selectedSubtype._id}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/product-categories/${selectedCategory._id}/types/${selectedType._id}/subtypes/${selectedSubtype._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -914,7 +925,8 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5000/api/product-categories/${categoryId}/types/${typeId}/subtypes/${subtypeId}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/product-categories/${categoryId}/types/${typeId}/subtypes/${subtypeId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`
@@ -984,10 +996,11 @@ const Dashboard = () => {
         if (sort) params.append('sort', sort);
       }
       
-      console.log(`Fetching products with URL: http://localhost:5000/api/products?${params.toString()}`);
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      console.log(`Fetching products with URL: ${apiUrl}/api/products?${params.toString()}`);
       console.log('Applied filters:', filters);
       
-      const response = await fetch(`http://localhost:5000/api/products?${params.toString()}`, {
+      const response = await fetch(`${apiUrl}/api/products?${params.toString()}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -1261,7 +1274,8 @@ const Dashboard = () => {
       const token = localStorage.getItem('adminToken');
       
       // Initialize socket
-      socketRef.current = io('http://localhost:5000');
+      const socketUrl = import.meta.env.VITE_SOCKET_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      socketRef.current = io(socketUrl);
       
       // Join admin support room
       socketRef.current.emit('join_admin_support');
@@ -1318,7 +1332,8 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem('adminToken');
       
-      const response = await fetch('http://localhost:5000/api/chat/conversations', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/chat/conversations`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -1342,7 +1357,8 @@ const Dashboard = () => {
       setIsFetchingMessages(true);
       const token = localStorage.getItem('adminToken');
       
-      const response = await fetch(`http://localhost:5000/api/chat/messages/${userId}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/chat/messages/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -1370,7 +1386,8 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem('adminToken');
       
-      await fetch('http://localhost:5000/api/chat/messages/read', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await fetch(`${apiUrl}/api/chat/messages/read`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

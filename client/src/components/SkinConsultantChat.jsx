@@ -60,9 +60,8 @@ const SkinConsultantChat = () => {
   
   // Helper function to get the API base URL
   const getApiBaseUrl = () => {
-    return window.location.hostname === 'localhost' 
-      ? 'http://localhost:5000/api' 
-      : `${window.location.origin.replace(/:\d+$/, ':5000')}/api`;
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    return `${apiUrl}/api`;
   };
   
   // Initialize socket connection
@@ -73,9 +72,7 @@ const SkinConsultantChat = () => {
       console.log('Opening consultant chat with token:', token ? 'Token exists' : 'No token');
       
       // Choose server URL based on environment
-      const serverUrl = window.location.hostname === 'localhost' 
-        ? 'http://localhost:5000' 
-        : window.location.origin.replace(/:\d+$/, ':5000');
+      const serverUrl = import.meta.env.VITE_SOCKET_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
       
       console.log('Connecting to socket server at:', serverUrl);
       
