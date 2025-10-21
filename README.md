@@ -31,7 +31,7 @@
 - [API Documentation](#-api-documentation)
 - [Deployment](#-deployment)
 - [Contributing](#-contributing)
-- [Developer](#-zyad-walid-mohammed-hassan)
+- [Developer](#zyad-walid-mohammed-hassan)
 - [License](#-license)
 
 ---
