@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useRef } from 'react';
-import { FaInstagram } from 'react-icons/fa';
+import { FaInstagram, FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaCode, FaLaptopCode, FaRocket } from 'react-icons/fa';
 
 export default function About() {
   return (
@@ -285,6 +285,263 @@ export default function About() {
                 </p>
               </div>
             </motion.div>
+          </div>
+        </motion.section>
+
+        {/* Developer Section */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          viewport={{ once: false }}
+          className="min-h-screen w-full snap-start flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-24 sm:py-32 relative overflow-hidden"
+        >
+          {/* Animated Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+            <div className="absolute top-3/4 left-1/2 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
+          </div>
+          
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <motion.div
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: false }}
+              className="text-center mb-16"
+            >
+              <motion.div
+                initial={{ scale: 0.5, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: false }}
+                className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6"
+              >
+                <FaCode className="text-blue-400" />
+                <span className="text-blue-100 font-medium">Full-Stack Development</span>
+                <FaRocket className="text-purple-400" />
+              </motion.div>
+              
+              <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
+                Meet the <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Developer</span>
+              </h2>
+              <div className="h-1 w-32 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full mb-6"></div>
+              <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+                The creative mind and technical expertise behind the entire FAMS platform
+              </p>
+            </motion.div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Developer Info */}
+              <motion.div
+                initial={{ x: -50, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                viewport={{ once: false }}
+                className="space-y-8"
+              >
+                <div className="bg-white/5 backdrop-blur-lg p-8 rounded-2xl border border-white/10">
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    viewport={{ once: false }}
+                    className="flex items-center space-x-4 mb-6"
+                  >
+                    <div className="relative">
+                      <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-lg">
+                        ZW
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-400 rounded-full border-2 border-slate-900"></div>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">Zyad Walid Mohammed Hassan</h3>
+                      <p className="text-blue-300 font-medium">Full-Stack Developer & System Architect</p>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.p
+                    initial={{ y: 20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                    viewport={{ once: false }}
+                    className="text-slate-300 mb-6 leading-relaxed"
+                  >
+                    Passionate full-stack developer who single-handedly designed and built the entire FAMS e-commerce platform. 
+                    From concept to deployment, every line of code, every user interface element, and every system architecture 
+                    decision was crafted with precision and innovation.
+                  </motion.p>
+                  
+                  {/* Tech Stack */}
+                  <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                    viewport={{ once: false }}
+                    className="mb-6"
+                  >
+                    <h4 className="text-lg font-semibold text-white mb-3 flex items-center">
+                      <FaLaptopCode className="mr-2 text-blue-400" />
+                      Technologies Used
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {['React', 'Node.js', 'MongoDB', 'Express', 'Socket.io', 'TailwindCSS', 'Vite', 'Cloudinary'].map((tech, index) => (
+                        <motion.span
+                          key={tech}
+                          initial={{ scale: 0, opacity: 0 }}
+                          whileInView={{ scale: 1, opacity: 1 }}
+                          transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
+                          viewport={{ once: false }}
+                          className="px-3 py-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-200 rounded-full text-sm border border-blue-400/30"
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </motion.div>
+                  
+                  {/* Contact Information */}
+                  <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.8 }}
+                    viewport={{ once: false }}
+                    className="space-y-4"
+                  >
+                    <h4 className="text-lg font-semibold text-white mb-3">Get In Touch</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <a
+                        href="mailto:zyad.walid.dev@gmail.com"
+                        className="flex items-center space-x-3 p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-all duration-300 border border-white/10 hover:border-blue-400/50 group"
+                      >
+                        <FaEnvelope className="text-blue-400 group-hover:scale-110 transition-transform" />
+                        <span className="text-slate-300 text-sm">zyad.walid.dev@gmail.com</span>
+                      </a>
+                      <a
+                        href="tel:+201234567890"
+                        className="flex items-center space-x-3 p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-all duration-300 border border-white/10 hover:border-green-400/50 group"
+                      >
+                        <FaPhone className="text-green-400 group-hover:scale-110 transition-transform" />
+                        <span className="text-slate-300 text-sm">+20 100 923 3046</span>
+                      </a>
+                    </div>
+                  </motion.div>
+                </div>
+                
+                {/* Social Links */}
+                <motion.div
+                  initial={{ y: 30, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.9 }}
+                  viewport={{ once: false }}
+                  className="flex justify-center space-x-4"
+                >
+                  <a
+                    href="https://github.com/zyadwalid1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative p-4 bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110"
+                  >
+                    <FaGithub className="text-2xl text-white group-hover:text-blue-400 transition-colors" />
+                    <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                      GitHub
+                    </div>
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/zyad-walid"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative p-4 bg-gradient-to-br from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110"
+                  >
+                    <FaLinkedin className="text-2xl text-white transition-colors" />
+                    <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                      LinkedIn
+                    </div>
+                  </a>
+                  <a
+                    href="mailto:zyad.walid.dev@gmail.com"
+                    className="group relative p-4 bg-gradient-to-br from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110"
+                  >
+                    <FaEnvelope className="text-2xl text-white transition-colors" />
+                    <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                      Email
+                    </div>
+                  </a>
+                </motion.div>
+              </motion.div>
+              
+              {/* Developer Image & Stats */}
+              <motion.div
+                initial={{ x: 50, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                viewport={{ once: false }}
+                className="flex flex-col items-center space-y-8"
+              >
+                {/* Profile Image */}
+                <motion.div
+                  initial={{ scale: 0.8, rotate: -5, opacity: 0 }}
+                  whileInView={{ scale: 1, rotate: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  viewport={{ once: false }}
+                  className="relative"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl blur-xl opacity-50 animate-pulse"></div>
+                  <div className="relative w-80 h-80 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
+                    <img
+                      src="../../images/My photo.png"
+                      alt="Zyad Walid Mohammed Hassan"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        // e.target.src = "https://drive.google.com/file/d/1HKdskUxWOWFFq1YrY8SJGJVT3Wyt_JwH/view";
+                      }}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <p className="text-white font-semibold">Full-Stack Developer</p>
+                      <p className="text-blue-300 text-sm">FAMS Platform Creator</p>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                {/* Development Stats */}
+                <motion.div
+                  initial={{ y: 30, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                  viewport={{ once: false }}
+                  className="grid grid-cols-2 gap-4 w-full max-w-md"
+                >
+                  {[
+                    { number: "100%", text: "Platform Development", icon: FaLaptopCode },
+                    { number: "50+", text: "Features Built", icon: FaRocket },
+                    { number: "24/7", text: "Dedication", icon: FaCode },
+                    { number: "1", text: "Developer Team", icon: "👨‍💻" }
+                  ].map((stat, index) => (
+                    <motion.div
+                      key={stat.text}
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                      viewport={{ once: false }}
+                      className="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 text-center"
+                    >
+                      <div className="flex justify-center mb-2">
+                        {typeof stat.icon === 'string' ? (
+                          <span className="text-2xl">{stat.icon}</span>
+                        ) : (
+                          <stat.icon className="text-2xl text-blue-400" />
+                        )}
+                      </div>
+                      <div className="text-2xl font-bold text-white">{stat.number}</div>
+                      <div className="text-xs text-slate-400">{stat.text}</div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </motion.div>
+            </div>
           </div>
         </motion.section>
 
