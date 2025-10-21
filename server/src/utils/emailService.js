@@ -4,7 +4,7 @@ import { AppError } from '../middleware/errorMiddleware.js';
 
 dotenv.config();
 
-// Create reusable transporter object
+// Create reusable transporter object with timeout configuration
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: process.env.SMTP_PORT,
@@ -16,17 +16,34 @@ const transporter = nodemailer.createTransport({
   tls: {
     // Do not fail on invalid certs
     rejectUnauthorized: false
-  }
+  },
+  // Add connection timeout settings
+  connectionTimeout: 10000, // 10 seconds
+  greetingTimeout: 10000,
+  socketTimeout: 15000
 });
 
-// Verify transporter configuration
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('SMTP Configuration Error:', error);
-    throw new AppError('Email service configuration error. Please check your SMTP settings.', 500);
-  } else {
+// Track email service status
+let emailServiceReady = false;
+
+// Verify transporter configuration asynchronously without blocking startup
+const verifyEmailService = async () => {
+  try {
+    await transporter.verify();
+    emailServiceReady = true;
     console.log('SMTP Server is ready to send emails');
+    return true;
+  } catch (error) {
+    emailServiceReady = false;
+    console.warn('SMTP Configuration Warning:', error.message);
+    console.warn('Email service will retry on next send attempt');
+    return false;
   }
+};
+
+// Attempt initial verification but don't block startup
+verifyEmailService().catch(err => {
+  console.warn('Initial SMTP verification failed, will retry on demand');
 });
 
 // Generate OTP based on configuration
@@ -185,7 +202,7 @@ const getEmailTemplate = (type, otp) => {
             </div>
           </div>
           <div class="footer">
-            <p>© ${new Date().getFullYear()} FAMS Cosmetics. All rights reserved.</p>
+            <p> FAMS Cosmetics. All rights reserved.</p>
             <p>This is an automated message, please do not reply.</p>
             <p>If you didn't request this email, please ignore it or contact support.</p>
           </div>
@@ -397,7 +414,7 @@ const getOrderConfirmationTemplate = (order) => {
             </div>
           </div>
           <div class="footer">
-            <p>© ${new Date().getFullYear()} FAMS Cosmetics. All rights reserved.</p>
+            <p> FAMS Cosmetics. All rights reserved.</p>
             <p>This is an automated message, please do not reply.</p>
             <p>If you have any questions about your order, please contact our customer support.</p>
           </div>
@@ -407,8 +424,8 @@ const getOrderConfirmationTemplate = (order) => {
   `;
 };
 
-// Send OTP email
-export const sendOTPEmail = async (email, otp, type = 'verify-email') => {
+// Send OTP email with retry logic
+export const sendOTPEmail = async (email, otp, type = 'verify-email', retries = 2) => {
   const templates = {
     'verify-email': {
       subject: 'Verify Your Email - FAMS Cosmetics'
@@ -427,17 +444,33 @@ export const sendOTPEmail = async (email, otp, type = 'verify-email') => {
     html: getEmailTemplate(type, otp)
   };
 
-  try {
-    await transporter.sendMail(mailOptions);
-    return true;
-  } catch (error) {
-    console.error('Error sending email:', error);
-    throw new Error('Failed to send email');
+  // Verify connection if not ready
+  if (!emailServiceReady) {
+    await verifyEmailService();
+  }
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log(`Email sent successfully to ${email}`);
+      return true;
+    } catch (error) {
+      console.error(`Email send attempt ${attempt + 1}/${retries + 1} failed:`, error.message);
+      
+      if (attempt < retries) {
+        // Wait before retrying (exponential backoff)
+        await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+      } else {
+        // Final attempt failed
+        console.error('All email send attempts failed for:', email);
+        throw new Error(`Failed to send email after ${retries + 1} attempts: ${error.message}`);
+      }
+    }
   }
 };
 
-// Send order confirmation email
-export const sendOrderConfirmationEmail = async (order) => {
+// Send order confirmation email with retry logic
+export const sendOrderConfirmationEmail = async (order, retries = 2) => {
   const mailOptions = {
     from: `"FAMS Cosmetics" <${process.env.SMTP_FROM}>`,
     to: order.shippingAddress.email,
@@ -445,12 +478,28 @@ export const sendOrderConfirmationEmail = async (order) => {
     html: getOrderConfirmationTemplate(order)
   };
 
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log(`Order confirmation email sent to ${order.shippingAddress.email}`);
-    return true;
-  } catch (error) {
-    console.error('Error sending order confirmation email:', error);
-    throw new Error('Failed to send order confirmation email');
+  // Verify connection if not ready
+  if (!emailServiceReady) {
+    await verifyEmailService();
   }
-}; 
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log(`Order confirmation email sent to ${order.shippingAddress.email}`);
+      return true;
+    } catch (error) {
+      console.error(`Order email attempt ${attempt + 1}/${retries + 1} failed:`, error.message);
+      
+      if (attempt < retries) {
+        // Wait before retrying (exponential backoff)
+        await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+      } else {
+        // Final attempt failed - log but don't crash
+        console.error('All order email attempts failed for order:', order.orderNumber);
+        // Don't throw error - order was placed successfully, email is secondary
+        return false;
+      }
+    }
+  }
+};
