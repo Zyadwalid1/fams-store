@@ -1,5 +1,9 @@
 // API Configuration utility
 const getApiUrl = () => {
+  // In production, use your Render backend URL
+  if (import.meta.env.PROD && !import.meta.env.VITE_API_URL) {
+    return 'https://fams-store-api.onrender.com';
+  }
   return import.meta.env.VITE_API_URL || 'http://localhost:5000';
 };
 

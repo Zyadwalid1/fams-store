@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FaPlay, FaVolumeMute, FaVolumeUp, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { apiRequest } from '../utils/api';
 
 const ReelsSlider = () => {
   const [reels, setReels] = useState([]);
@@ -15,8 +16,7 @@ const ReelsSlider = () => {
   useEffect(() => {
     const fetchReels = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/reels');
-        const data = await response.json();
+        const data = await apiRequest('/reels');
         
         if (data.status === 'success') {
           setReels(data.data);
